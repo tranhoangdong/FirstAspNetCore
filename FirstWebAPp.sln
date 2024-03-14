@@ -10,9 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopsolution.Data", "eShopsolution.Data\eShopsolution.Data.csproj", "{A0B593B5-7A13-4548-995A-6C1EF5D4F849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Data", "eShopsolution.Data\eShopSolution.Data.csproj", "{A0B593B5-7A13-4548-995A-6C1EF5D4F849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eShopsolution.Application", "eShopsolution.Application\eShopsolution.Application.csproj", "{0059B57D-3C9B-4D41-A528-4F9817CA5200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShopSolution.Application", "eShopsolution.Application\eShopSolution.Application.csproj", "{0059B57D-3C9B-4D41-A528-4F9817CA5200}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
