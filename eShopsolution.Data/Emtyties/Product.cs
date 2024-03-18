@@ -15,7 +15,6 @@ namespace eShopSolution.Data.Entities
         public DateTime DateCreated { set; get; }
 
         public bool? IsFeatured { get; set; }
-
-     
+        public object ProductInCategories { get; internal set; }
     }
 }

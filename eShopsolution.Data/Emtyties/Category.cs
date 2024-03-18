@@ -18,6 +18,6 @@ namespace eShopSolution.Data.Entities
 
 
         public List<CategoryTranslation> CategoryTranslations { get; set; }
-
+        public object ProductInCategories { get; internal set; }
     }
 }
