@@ -1,4 +1,6 @@
-﻿using eShopSolution.Data.Entities;
+﻿using eShopsolution.Data.Enums;
+
+using eShopSolution.Data.Entities;
 using eShopSolution.Data.Enums;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,8 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Data.Configuration
-
+namespace eShopSolution.Data.Configurations
 {
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {

@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace eShopSolution.Data.Configuration
+namespace eShopSolution.Data.Configurations
 {
     public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
@@ -31,7 +31,7 @@ namespace eShopSolution.Data.Configuration
 
             builder.Property(x => x.ShipPhoneNumber).IsRequired().HasMaxLength(200);
 
-            builder.HasOne(x => x.AppUser).WithMany(x => x.Orders).HasForeignKey(x => x.UserId);
+            //builder.HasOne(x => x.AppUser).WithMany(x => x.Orders).HasForeignKey(x => x.UserId);
 
         }
     }
