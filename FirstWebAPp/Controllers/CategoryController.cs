@@ -1,8 +1,6 @@
-﻿using eShopSolution.Data.Entities;
-using eShopSolution.Data.Repositories;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using eShopSolution.Data.Repositories;
 
 namespace eShopSolution.Controllers
 {
