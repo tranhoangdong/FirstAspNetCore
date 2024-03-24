@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Data.Repositories
+namespace eShopSolution.Application
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryService : ICategoryService
     {
         private readonly EShopDbContext _context;
 
-        public CategoryRepository(EShopDbContext context)
+        public CategoryService(EShopDbContext context)
         {
             _context = context;
         }
@@ -37,7 +37,11 @@ namespace eShopSolution.Data.Repositories
 
         public async Task UpdateCategory(Category category)
         {
-            _context.Entry(category).State = EntityState.Modified;
+            var cateogryinDb = await _context.Categories.FindAsync(category.Id);
+            cateogryinDb.IsShowOnHome = category.IsShowOnHome;
+            cateogryinDb.ParentId = category.ParentId;
+            cateogryinDb.SortOrder = category.SortOrder;
+            cateogryinDb.Status = category.Status;
             await _context.SaveChangesAsync();
         }
 

@@ -1,0 +1,29 @@
+﻿@model List<Category>
+@using eShopSolution.Data.Entities;
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>SortOrder</th>
+            <th>IsShowOnHome</th>
+            <th>ParentId</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.SortOrder</td>
+                <td>@category.IsShowOnHome</td>
+                <td>@category.ParentId</td>
+                <td>@category.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
