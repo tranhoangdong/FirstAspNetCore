@@ -3,9 +3,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Data.Repositories
-{
-    public interface ICategoryRepository
+namespace eShopSolution.Application
+{ 
+    public interface ICategoryService
     {
         Task<List<Category>> GetAllCategories();
         Task<Category> GetCategoryById(int id);
