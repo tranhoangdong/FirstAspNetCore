@@ -29,13 +29,14 @@ namespace eShopsolution.Data.EF
 
         //public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public object Products { get; set; }
 
         //public DbSet<AppConfig> AppConfigs { get; set; }
 
         //public DbSet<Cart> Carts { get; set; }
 
         //public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
-        
+
 
         //public DbSet<Contact> Contacts { get; set; }
 
@@ -50,7 +51,7 @@ namespace eShopsolution.Data.EF
 
         //public DbSet<Transaction> Transactions { get; set; }
 
-      
+
 
     }
 }
