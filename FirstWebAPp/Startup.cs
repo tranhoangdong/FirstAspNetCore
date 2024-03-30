@@ -32,6 +32,7 @@ namespace FirstWebAPp
             services.AddDbContextPool<EShopDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddControllersWithViews();
         }
 
