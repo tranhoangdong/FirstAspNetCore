@@ -21,16 +21,15 @@ namespace eShopsolution.Data.EF
         {
             //Configure using Fluent API
            // modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
-            //modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             //modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguration());
             //modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }
 
-        //public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public object Products { get; set; }
-
+       
         //public DbSet<AppConfig> AppConfigs { get; set; }
 
         //public DbSet<Cart> Carts { get; set; }
