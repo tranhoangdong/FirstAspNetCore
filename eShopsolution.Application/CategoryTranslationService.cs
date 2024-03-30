@@ -1,4 +1,4 @@
-﻿/*using eShopsolution.Data.EF;
+﻿using eShopsolution.Data.EF;
 
 using eShopSolution.Data.Entities;
 
@@ -60,4 +60,3 @@ namespace eShopSolution.Application
         }
     }
 }
-*/

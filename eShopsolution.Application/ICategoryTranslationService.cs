@@ -7,7 +7,7 @@ namespace eShopSolution.Application
 {
     public interface ICategoryTranslationService
     {
-        Task<List<CategoryTranslation>> GetAllCategoryTranslations();
+        List<CategoryTranslation> GetAllCategoryTranslations();
         Task<CategoryTranslation> GetCategoryTranslationById(int id);
         Task CreateCategoryTranslation(CategoryTranslation categoryTranslation);
         Task UpdateCategoryTranslation(CategoryTranslation categoryTranslation);

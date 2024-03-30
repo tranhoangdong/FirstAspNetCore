@@ -6,6 +6,7 @@ using eShopSolution.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application
@@ -19,14 +20,14 @@ namespace eShopSolution.Application
             _context = context;
         }
 
-        public async Task<List<Product>> GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            return await _context.Products.ToListAsync();
+            return _context.Products.ToList();
         }
 
-        public async Task<Product> GetProductById(int id)
+        public Product GetProductById(int id)
         {
-            return await _context.Products.FindAsync(id);
+            return  _context.Products.Find(id);
         }
 
         public async Task CreateProduct(Product product)
@@ -52,13 +53,13 @@ namespace eShopSolution.Application
             }
         }
 
-        public async Task DeleteProduct(int id)
+        public DeleteProduct(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = _context.Products.Find(id);
             if (product != null)
             {
                 _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
     }

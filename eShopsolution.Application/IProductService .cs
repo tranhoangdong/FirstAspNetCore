@@ -7,8 +7,8 @@ namespace eShopSolution.Application
 {
     public interface IProductService
     {
-        Task<List<Product>> GetAllProducts();
-        Task<Product> GetProductById(int id);
+        List<Product> GetAllProducts();
+        Product GetProductById(int id);
         Task CreateProduct(Product product);
         Task UpdateProduct(Product product);
         Task DeleteProduct(int id);

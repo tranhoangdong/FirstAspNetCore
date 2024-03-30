@@ -18,16 +18,16 @@ namespace eShopSolution.Controllers
         }
 
         [HttpGet("GetAllProducts")]
-        public async Task<IActionResult> GetAllProducts()
+        public IActionResult GetAllProducts()
         {
-            var products = await _productService.GetAllProducts();
+            var products = _productService.GetAllProducts();
             return Ok(products);
         }
 
         [HttpGet("GetProductById/{id}")]
-        public async Task<IActionResult> GetProductById(int id)
+        public IActionResult GetProductById(int id)
         {
-            var product = await _productService.GetProductById(id);
+            var product = _productService.GetProductById(id);
             if (product == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace eShopSolution.Controllers
                 return BadRequest();
             }
 
-            var existingProduct = await _productService.GetProductById(id);
+            var existingProduct = _productService.GetProductById(id);
             if (existingProduct == null)
             {
                 return NotFound();
@@ -54,9 +54,9 @@ namespace eShopSolution.Controllers
         }
 
         [HttpDelete("DeleteProduct/{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public IActionResult DeleteProduct(int id)
         {
-            var productToDelete = await _productService.GetProductById(id);
+            var productToDelete = _productService.GetProductById(id);
             if (productToDelete == null)
             {
                 return NotFound();

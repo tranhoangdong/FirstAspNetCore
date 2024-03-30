@@ -17,9 +17,9 @@ namespace eShopSolution.Controllers
         }
 
         [HttpGet("GetAllCategoryTranslations")]
-        public async Task<IActionResult> GetAllCategoryTranslations()
+        public IActionResult GetAllCategoryTranslations()
         {
-            var categoryTranslations = await _categoryTranslationService.GetAllCategoryTranslations();
+            var categoryTranslations = _categoryTranslationService.GetAllCategoryTranslations();
             return Ok(categoryTranslations);
         }
 
