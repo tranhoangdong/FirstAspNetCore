@@ -25,20 +25,20 @@ namespace eShopSolution.Application
             return _context.CategoryTranslations.ToList();
         }
 
-        public async Task<CategoryTranslation> GetCategoryTranslationById(int id)
+        public CategoryTranslation GetCategoryTranslationById(int id)
         {
-            return await _context.CategoryTranslations.FindAsync(id);
+            return _context.CategoryTranslations.Find(id);
         }
 
-        public async Task CreateCategoryTranslation(CategoryTranslation categoryTranslation)
+        public void CreateCategoryTranslation(CategoryTranslation categoryTranslation)
         {
             _context.CategoryTranslations.Add(categoryTranslation);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task UpdateCategoryTranslation(CategoryTranslation categoryTranslation)
+        public void UpdateCategoryTranslation(CategoryTranslation categoryTranslation)
         {
-            var translationInDb = await _context.CategoryTranslations.FindAsync(categoryTranslation.Id);
+            var translationInDb = _context.CategoryTranslations.Find(categoryTranslation.Id);
             if (translationInDb != null)
             {
                 translationInDb.Name = categoryTranslation.Name;
@@ -47,17 +47,17 @@ namespace eShopSolution.Application
                 translationInDb.LanguageId = categoryTranslation.LanguageId;
                 translationInDb.SeoAlias = categoryTranslation.SeoAlias;
 
-                await _context.SaveChangesAsync();
+               _context.SaveChanges();
             }
         }
 
-        public async Task DeleteCategoryTranslation(int id)
+        public void DeleteCategoryTranslation(int id)
         {
-            var translation = await _context.CategoryTranslations.FindAsync(id);
+            var translation = _context.CategoryTranslations.Find(id);
             if (translation != null)
             {
                 _context.CategoryTranslations.Remove(translation);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 

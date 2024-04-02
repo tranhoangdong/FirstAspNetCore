@@ -24,9 +24,9 @@ namespace eShopSolution.Controllers
         }
 
         [HttpGet("GetCategoryTranslationById/{id}")]
-        public async Task<IActionResult> GetCategoryTranslationById(int id)
+        public IActionResult GetCategoryTranslationById(int id)
         {
-            var categoryTranslation = await _categoryTranslationService.GetCategoryTranslationById(id);
+            var categoryTranslation = _categoryTranslationService.GetCategoryTranslationById(id);
             if (categoryTranslation == null)
             {
                 return NotFound();
@@ -35,33 +35,33 @@ namespace eShopSolution.Controllers
         }
 
         [HttpPut("EditCategoryTranslation/{id}")]
-        public async Task<IActionResult> EditCategoryTranslation(int id, [FromBody] CategoryTranslation categoryTranslation)
+        public IActionResult EditCategoryTranslation(int id, [FromBody] CategoryTranslation categoryTranslation)
         {
             if (id != categoryTranslation.Id)
             {
                 return BadRequest();
             }
 
-            var existingCategoryTranslation = await _categoryTranslationService.GetCategoryTranslationById(id);
+            var existingCategoryTranslation = _categoryTranslationService.GetCategoryTranslationById(id);
             if (existingCategoryTranslation == null)
             {
                 return NotFound();
             }
 
-            await _categoryTranslationService.UpdateCategoryTranslation(categoryTranslation);
+            _categoryTranslationService.UpdateCategoryTranslation(categoryTranslation);
             return NoContent();
         }
 
         [HttpDelete("DeleteCategoryTranslation/{id}")]
-        public async Task<IActionResult> DeleteCategoryTranslation(int id)
+        public IActionResult DeleteCategoryTranslation(int id)
         {
-            var categoryTranslationToDelete = await _categoryTranslationService.GetCategoryTranslationById(id);
+            var categoryTranslationToDelete = _categoryTranslationService.GetCategoryTranslationById(id);
             if (categoryTranslationToDelete == null)
             {
                 return NotFound();
             }
 
-            await _categoryTranslationService.DeleteCategoryTranslation(id);
+            _categoryTranslationService.DeleteCategoryTranslation(id);
             return NoContent();
         }
     }

@@ -8,9 +8,9 @@ namespace eShopSolution.Application
     public interface ICategoryTranslationService
     {
         List<CategoryTranslation> GetAllCategoryTranslations();
-        Task<CategoryTranslation> GetCategoryTranslationById(int id);
-        Task CreateCategoryTranslation(CategoryTranslation categoryTranslation);
-        Task UpdateCategoryTranslation(CategoryTranslation categoryTranslation);
-        Task DeleteCategoryTranslation(int id);
+        CategoryTranslation GetCategoryTranslationById(int id);
+        void CreateCategoryTranslation(CategoryTranslation categoryTranslation);
+        void UpdateCategoryTranslation(CategoryTranslation categoryTranslation);
+        void DeleteCategoryTranslation(int id);
     }
 }
