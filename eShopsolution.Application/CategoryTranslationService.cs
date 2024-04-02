@@ -5,6 +5,7 @@ using eShopSolution.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application
@@ -18,9 +19,10 @@ namespace eShopSolution.Application
             _context = context;
         }
 
-        public async Task<List<CategoryTranslation>> GetAllCategoryTranslations()
+
+        public List<CategoryTranslation> GetAllCategoryTranslations()
         {
-            return await _context.CategoryTranslations.ToListAsync();
+            return _context.CategoryTranslations.ToList();
         }
 
         public async Task<CategoryTranslation> GetCategoryTranslationById(int id)
@@ -58,5 +60,6 @@ namespace eShopSolution.Application
                 await _context.SaveChangesAsync();
             }
         }
+
     }
 }

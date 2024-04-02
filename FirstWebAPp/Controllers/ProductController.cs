@@ -36,7 +36,7 @@ namespace eShopSolution.Controllers
         }
 
         [HttpPut("EditProduct/{id}")]
-        public async Task<IActionResult> EditProduct(int id, [FromBody] Product product)
+        public IActionResult EditProduct(int id, [FromBody] Product product)
         {
             if (id != product.Id)
             {
@@ -49,7 +49,7 @@ namespace eShopSolution.Controllers
                 return NotFound();
             }
 
-            await _productService.UpdateProduct(product);
+            _productService.UpdateProduct(product);
             return NoContent();
         }
 
@@ -62,7 +62,7 @@ namespace eShopSolution.Controllers
                 return NotFound();
             }
 
-            await _productService.DeleteProduct(id);
+           _productService.DeleteProduct(id);
             return NoContent();
         }
     }
