@@ -64,5 +64,57 @@ namespace eShopSolution.Controllers
             _categoryTranslationService.DeleteCategoryTranslation(id);
             return NoContent();
         }
+
+
+        [HttpGet("PostmanScripts")]
+        public IActionResult PostmanScripts()
+        {
+            string script = @"
+               
+                pm.sendRequest({
+                    url: 'https://localhost:44336/api/CategoryTranslation/GetAllCategoryTranslations',
+                    method: 'GET',
+                }, function (err, res) {
+                    console.log(res.json());
+                });
+
+              
+                pm.sendRequest({
+                    url: 'https://localhost:44336/api/CategoryTranslation/GetCategoryTranslationById/1',
+                    method: 'GET',
+                }, function (err, res) {
+                    console.log(res.json());
+                });
+
+                
+                pm.sendRequest({
+                    url: 'https://localhost:44336/api/CategoryTranslation/EditCategoryTranslation/1', 
+                    method: 'PUT',
+                    header: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: {
+                        mode: 'raw',
+                        raw: JSON.stringify({
+                           
+                            'Id': 1,
+                       
+                        })
+                    }
+                }, function (err, res) {
+                    console.log(res.json());
+                });
+
+              
+                pm.sendRequest({
+                    url: 'https://localhost:44336/api/CategoryTranslation/DeleteCategoryTranslation/1',
+                    method: 'DELETE',
+                }, function (err, res)  
+                    console.log(res.json());
+                });
+            ";
+
+            return Content(script, "application/javascript");
+        }
     }
 }
