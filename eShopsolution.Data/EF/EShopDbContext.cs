@@ -23,6 +23,7 @@ namespace eShopsolution.Data.EF
            // modelBuilder.ApplyConfiguration(new AppConfigConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryTranslationConfiguration());
             //modelBuilder.ApplyConfiguration(new ProductInCategoryConfiguration());
             //modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }
@@ -34,7 +35,7 @@ namespace eShopsolution.Data.EF
 
         //public DbSet<Cart> Carts { get; set; }
 
-        //public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
+       public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
 
 
         //public DbSet<Contact> Contacts { get; set; }

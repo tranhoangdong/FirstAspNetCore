@@ -30,15 +30,15 @@ namespace eShopSolution.Application
             return  _context.Products.Find(id);
         }
 
-        public async Task CreateProduct(Product product)
+        public void CreateProduct(Product product)
         {
             _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
-        public async Task UpdateProduct(Product product)
+        public void UpdateProduct(Product product)
         {
-            var productInDb = await _context.Products.FindAsync(product.Id);
+            var productInDb = _context.Products.Find(product.Id);
             if (productInDb != null)
             {
      
@@ -49,11 +49,12 @@ namespace eShopSolution.Application
                 productInDb.DateCreated = product.DateCreated;
                 productInDb.IsFeatured = product.IsFeatured;
 
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
         }
 
-        public DeleteProduct(int id)
+
+        public void DeleteProduct(int id)
         {
             var product = _context.Products.Find(id);
             if (product != null)

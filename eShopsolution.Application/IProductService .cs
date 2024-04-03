@@ -9,8 +9,8 @@ namespace eShopSolution.Application
     {
         List<Product> GetAllProducts();
         Product GetProductById(int id);
-        Task CreateProduct(Product product);
-        Task UpdateProduct(Product product);
-        Task DeleteProduct(int id);
+        void CreateProduct(Product product);
+        void UpdateProduct(Product product);
+        void DeleteProduct(int id);
     }
 }
