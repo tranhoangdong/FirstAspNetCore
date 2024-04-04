@@ -48,6 +48,7 @@ namespace eShopSolution.Application
                 productInDb.ViewCount = product.ViewCount;
                 productInDb.DateCreated = product.DateCreated;
                 productInDb.IsFeatured = product.IsFeatured;
+                productInDb.Descreption = product.Descreption;
 
                 _context.SaveChanges();
             }

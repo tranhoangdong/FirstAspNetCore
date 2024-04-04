@@ -30,6 +30,9 @@ namespace eShopSolution.Data.Configuration
             builder.Property(x => x.DateCreated);
 
             builder.Property(x => x.IsFeatured);
+
+            builder.Property(x => x.Descreption);
+
         }
     }
 }

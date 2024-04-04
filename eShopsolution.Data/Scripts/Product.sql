@@ -8,5 +8,6 @@ CREATE TABLE [dbo].[Product](
     [Stock] [int] NULL,
     [ViewCount] [int] NULL,
     [DateCreated] [datetime] NULL,
-    [IsFeatured] [bit] NULL
+    [IsFeatured] [bit] NULL,
+    [Descreption] [nvarchar](100) NULL
 )
