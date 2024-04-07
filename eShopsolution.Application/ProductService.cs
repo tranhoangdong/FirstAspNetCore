@@ -67,5 +67,12 @@ namespace eShopSolution.Application
                 _context.SaveChanges();
             }
         }
+
+        public List<Product> GetProductByCategoryId(int categoryId)
+        {
+            return _context.Products.Where(x => x.CategoryId == categoryId).ToList();
+
+
+        }
     }
 }
