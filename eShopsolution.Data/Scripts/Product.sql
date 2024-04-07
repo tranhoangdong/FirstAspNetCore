@@ -10,4 +10,5 @@ CREATE TABLE [dbo].[Product](
     [DateCreated] [datetime] NULL,
     [IsFeatured] [bit] NULL,
     [Descreption] [nvarchar](100) NULL
+
 )

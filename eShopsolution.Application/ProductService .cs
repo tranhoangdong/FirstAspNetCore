@@ -49,6 +49,9 @@ namespace eShopSolution.Application
                 productInDb.DateCreated = product.DateCreated;
                 productInDb.IsFeatured = product.IsFeatured;
                 productInDb.Descreption = product.Descreption;
+                productInDb.CategoryId = product.CategoryId;
+                
+
 
                 _context.SaveChanges();
             }

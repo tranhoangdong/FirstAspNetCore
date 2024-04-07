@@ -33,6 +33,8 @@ namespace eShopSolution.Data.Configuration
 
             builder.Property(x => x.Descreption);
 
+            builder.Property(x => x.CategoryId);
+
         }
     }
 }
