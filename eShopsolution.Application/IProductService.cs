@@ -12,5 +12,6 @@ namespace eShopSolution.Application
         void CreateProduct(Product product);
         void UpdateProduct(Product product);
         void DeleteProduct(int id);
+        List<Product> GetProductByCategoryId(int categoryId);
     }
 }

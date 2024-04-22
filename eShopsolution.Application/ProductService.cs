@@ -48,6 +48,10 @@ namespace eShopSolution.Application
                 productInDb.ViewCount = product.ViewCount;
                 productInDb.DateCreated = product.DateCreated;
                 productInDb.IsFeatured = product.IsFeatured;
+                productInDb.Descreption = product.Descreption;
+                productInDb.CategoryId = product.CategoryId;
+                
+
 
                 _context.SaveChanges();
             }
@@ -62,6 +66,13 @@ namespace eShopSolution.Application
                 _context.Products.Remove(product);
                 _context.SaveChanges();
             }
+        }
+
+        public List<Product> GetProductByCategoryId(int categoryId)
+        {
+            return _context.Products.Where(x => x.CategoryId == categoryId).ToList();
+
+
         }
     }
 }

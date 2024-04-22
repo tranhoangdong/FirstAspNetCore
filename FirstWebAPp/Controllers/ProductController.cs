@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using eShopSolution.Data.Entities;
 using eShopSolution.Application;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace eShopSolution.Controllers
 {
@@ -64,6 +66,12 @@ namespace eShopSolution.Controllers
 
            _productService.DeleteProduct(id);
             return NoContent();
+        }
+        [HttpGet("GetProductByCategoryId/{categoryId}")]
+        public IActionResult GetProductByCategoryId(int categoryId)
+        {
+            var products = _productService.GetAllProducts().Where(p => p.CategoryId == categoryId);
+            return Ok(products);
         }
     }
 }
