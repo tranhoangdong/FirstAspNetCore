@@ -1,4 +1,5 @@
-﻿using eShopSolution.Data.Entities;
+﻿using eShopSolution.Application.Dtos;
+using eShopSolution.Data.Entities;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace eShopSolution.Application
         void CreateProduct(Product product);
         void UpdateProduct(Product product);
         void DeleteProduct(int id);
-        List<Product> GetProductByCategoryId(int categoryId);
+        List<Product> GetProductByCategory(int categoryId);
+        List<Product> SearchProductByProductName(string ProductName);
+        ProductDto GetProductDetailDtoByProductId(int productId);
     }
 }
