@@ -15,5 +15,6 @@ namespace eShopSolution.Data.Entities
         public string IsShowOnHome { set; get; }
         public int? ParentId { set; get; }
         public  string Status { set; get; }
+        public ICollection<Product> Products { get; set; }  
     }
 }

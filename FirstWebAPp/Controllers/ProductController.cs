@@ -67,11 +67,31 @@ namespace eShopSolution.Controllers
            _productService.DeleteProduct(id);
             return NoContent();
         }
-        [HttpGet("GetProductByCategoryId/{categoryId}")]
-        public IActionResult GetProductByCategoryId(int categoryId)
+        [HttpGet("GetProductByCategory/{categoryId}")]
+        public IActionResult GetProductByCategory(int categoryId)
         {
             var products = _productService.GetAllProducts().Where(p => p.CategoryId == categoryId);
             return Ok(products);
         }
+
+
+        [HttpGet("SearchProductByProductName/{ProductName}")]
+        public IActionResult SearchProductByProductName(string ProductName)
+        {
+            var products = _productService.GetAllProducts()
+                                  .Where(p => p.ProductName.Contains(ProductName));
+
+            return Ok(products);
+        }
+
+        [HttpGet("GetProductDetailDtoByProductId/{Id}")]
+        public IActionResult GetProductDetailDtoByProductId(int id)
+        {
+            var product = _productService.GetProductDetailDtoByProductId(id);
+            return Ok(product);
+
+
+        }
+
     }
 }

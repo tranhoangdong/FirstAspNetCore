@@ -1,5 +1,6 @@
 ﻿using eShopsolution.Data.EF;
 
+using eShopSolution.Application.Dtos;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 
@@ -48,7 +49,7 @@ namespace eShopSolution.Application
                 productInDb.ViewCount = product.ViewCount;
                 productInDb.DateCreated = product.DateCreated;
                 productInDb.IsFeatured = product.IsFeatured;
-                productInDb.Descreption = product.Descreption;
+                productInDb.Description = product.Description;
                 productInDb.CategoryId = product.CategoryId;
                 
 
@@ -68,10 +69,39 @@ namespace eShopSolution.Application
             }
         }
 
-        public List<Product> GetProductByCategoryId(int categoryId)
+        public List<Product> GetProductByCategory(int categoryId)
         {
             return _context.Products.Where(x => x.CategoryId == categoryId).ToList();
 
+
+        }
+        public List<Product> SearchProductByProductName(string ProductName)
+        {
+            return _context.Products.Where(x => x.ProductName == ProductName).ToList();
+
+
+        }
+
+        public ProductDto GetProductDetailDtoByProductId(int productId)
+        {
+          //  var testProduct = _context.Products.Include(x=>x.Category).Where(x => x.Id == productId).FirstOrDefault();
+            var product = _context.Products.Include(x => x.Category).Where(x => x.Id == productId)
+                .Select(x => new ProductDto
+                {
+                    CategoryId = x.CategoryId.Value,
+                    Id = x.Id,
+                    ProductName = x.ProductName,
+                    Status = x.Category.Status,
+                }).FirstOrDefault();
+            //  var category = _context.Categories.Where(x => x.Id == product.CategoryId).FirstOrDefault();
+            //var result = new ProductDto
+            //{
+            //    CategoryId = product.CategoryId,
+            //    Id = product.Id,
+            //    Status = category.Status,
+            //    ProductName = product.ProductName
+            //};
+            return product;
 
         }
     }

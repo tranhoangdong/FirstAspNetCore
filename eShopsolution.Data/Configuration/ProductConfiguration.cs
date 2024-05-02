@@ -21,6 +21,8 @@ namespace eShopSolution.Data.Configuration
 
             builder.Property(x => x.Price);
 
+            builder.Property(x => x.ProductName);
+
             builder.Property(x => x.OriginalPrice);
 
             builder.Property(x => x.Stock).HasDefaultValue(0);
@@ -31,9 +33,13 @@ namespace eShopSolution.Data.Configuration
 
             builder.Property(x => x.IsFeatured);
 
-            builder.Property(x => x.Descreption);
+            builder.Property(x => x.Description).HasColumnName("Descreption");
 
             builder.Property(x => x.CategoryId);
+
+            builder.HasOne<Category>(s => s.Category)
+                   .WithMany(g => g.Products)
+                   .HasForeignKey(s => s.CategoryId);
 
         }
     }
