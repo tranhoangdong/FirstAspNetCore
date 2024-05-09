@@ -35,6 +35,7 @@ namespace FirstWebAPp
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ICategoryTranslationService, CategoryTranslationService>();
+            
             services.AddControllersWithViews();
         }
 
