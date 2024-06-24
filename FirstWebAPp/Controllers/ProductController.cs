@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using eShopSolution.Data.Entities;
-using eShopSolution.Application;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using eShopSolution.Application.IService;
 
 namespace eShopSolution.Controllers
 {

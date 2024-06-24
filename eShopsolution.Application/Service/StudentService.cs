@@ -1,5 +1,5 @@
 ﻿using eShopsolution.Data.EF;
-
+using eShopSolution.Application.IService;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 
@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application
+namespace eShopSolution.Application.Service
 {
     public class StudentService : IStudentService
     {

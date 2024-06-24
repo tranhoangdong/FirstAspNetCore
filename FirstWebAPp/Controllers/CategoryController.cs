@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using eShopSolution.Data.Entities;
 using System;
-using eShopSolution.Application;
+using eShopSolution.Application.IService;
 
 namespace eShopSolution.Controllers
 {
