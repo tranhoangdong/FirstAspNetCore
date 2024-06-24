@@ -1,5 +1,5 @@
 ﻿using eShopsolution.Data.EF;
-
+using eShopSolution.Application.IService;
 using eShopSolution.Data.Entities;
 
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application
+namespace eShopSolution.Application.Service
 {
     public class CategoryTranslationService : ICategoryTranslationService
     {
@@ -47,7 +47,7 @@ namespace eShopSolution.Application
                 translationInDb.LanguageId = categoryTranslation.LanguageId;
                 translationInDb.SeoAlias = categoryTranslation.SeoAlias;
 
-               _context.SaveChanges();
+                _context.SaveChanges();
             }
         }
 

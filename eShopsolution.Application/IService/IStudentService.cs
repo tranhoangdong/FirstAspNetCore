@@ -3,11 +3,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application
+namespace eShopSolution.Application.IService
 {
     public interface IStudentService
     {
-       
+
         List<Product> SearchProductByProductName(string ProductName);
     }
 }

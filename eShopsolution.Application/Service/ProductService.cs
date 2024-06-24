@@ -1,6 +1,6 @@
 ﻿using eShopsolution.Data.EF;
-
 using eShopSolution.Application.Dtos;
+using eShopSolution.Application.IService;
 using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
 
@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eShopSolution.Application
+namespace eShopSolution.Application.Service
 {
     public class ProductService : IProductService
     {
@@ -28,7 +28,7 @@ namespace eShopSolution.Application
 
         public Product GetProductById(int id)
         {
-            return  _context.Products.Find(id);
+            return _context.Products.Find(id);
         }
 
         public void CreateProduct(Product product)
@@ -42,7 +42,7 @@ namespace eShopSolution.Application
             var productInDb = _context.Products.Find(product.Id);
             if (productInDb != null)
             {
-     
+
                 productInDb.Price = product.Price;
                 productInDb.OriginalPrice = product.OriginalPrice;
                 productInDb.Stock = product.Stock;
@@ -51,7 +51,7 @@ namespace eShopSolution.Application
                 productInDb.IsFeatured = product.IsFeatured;
                 productInDb.Description = product.Description;
                 productInDb.CategoryId = product.CategoryId;
-                
+
 
 
                 _context.SaveChanges();
@@ -84,7 +84,7 @@ namespace eShopSolution.Application
 
         public ProductDto GetProductDetailDtoByProductId(int productId)
         {
-          //  var testProduct = _context.Products.Include(x=>x.Category).Where(x => x.Id == productId).FirstOrDefault();
+            //  var testProduct = _context.Products.Include(x=>x.Category).Where(x => x.Id == productId).FirstOrDefault();
             var product = _context.Products.Include(x => x.Category).Where(x => x.Id == productId)
                 .Select(x => new ProductDto
                 {

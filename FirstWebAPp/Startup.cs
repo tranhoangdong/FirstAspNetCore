@@ -1,7 +1,6 @@
 using eShopsolution.Data.EF;
-
-using eShopSolution.Application;
-
+using eShopSolution.Application.IService;
+using eShopSolution.Application.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

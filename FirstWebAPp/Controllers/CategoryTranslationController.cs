@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using eShopSolution.Data.Entities;
-using eShopSolution.Application;
+using eShopSolution.Application.IService;
 
 namespace eShopSolution.Controllers
 {
