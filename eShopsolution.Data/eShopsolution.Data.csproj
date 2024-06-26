@@ -19,4 +19,9 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

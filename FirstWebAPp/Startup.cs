@@ -1,6 +1,4 @@
 using eShopsolution.Data.EF;
-using eShopSolution.Application.IService;
-using eShopSolution.Application.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,10 +28,7 @@ namespace FirstWebAPp
         {
             services.AddDbContextPool<EShopDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<ICategoryTranslationService, CategoryTranslationService>();
+           
             
             services.AddControllersWithViews();
         }
