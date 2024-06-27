@@ -5,14 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Controllers\appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Controllers\appsettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.32">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,6 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eShopsolution.Application\eShopSolution.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Category\" />
   </ItemGroup>
 
 </Project>

@@ -1,20 +1,18 @@
-﻿using eShopSolution.Application.Dtos;
-using eShopSolution.Data.Entities;
-
+﻿using eShopSolution.Data.Entities;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application.IService
 {
-    public interface IProductService
+   public interface IProductService
     {
         List<Product> GetAllProducts();
-        Product GetProductById(int id);
-        void CreateProduct(Product product);
-        void UpdateProduct(Product product);
-        void DeleteProduct(int id);
-        List<Product> GetProductByCategory(int categoryId);
-        List<Product> SearchProductByProductName(string ProductName);
-        ProductDto GetProductDetailDtoByProductId(int productId);
+        Product GetProductbyID(int productId);
+        public void UpdateProduct(Product product);
+        public void DeleteProduct(int productId);
+        public IEnumerable<Product> GetPagedProducts(int pageNumber, int pageSize);
+        public int GetTotalProducts();
     }
 }

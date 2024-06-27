@@ -1,108 +1,71 @@
 ﻿using eShopsolution.Data.EF;
-using eShopSolution.Application.Dtos;
 using eShopSolution.Application.IService;
-using eShopSolution.Data.EF;
 using eShopSolution.Data.Entities;
-
 using Microsoft.EntityFrameworkCore;
-
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace eShopSolution.Application.Service
 {
     public class ProductService : IProductService
     {
-        private readonly EShopDbContext _context;
+        private readonly EShopDbContext _eShopDbContext;
 
-        public ProductService(EShopDbContext context)
+        public ProductService(EShopDbContext eShopDbContext)
         {
-            _context = context;
+            _eShopDbContext = eShopDbContext;
         }
 
         public List<Product> GetAllProducts()
         {
-            return _context.Products.ToList();
+            return _eShopDbContext.Products.ToList();
         }
-
-        public Product GetProductById(int id)
+        public Product GetProductbyID(int productId)
         {
-            return _context.Products.Find(id);
+            return _eShopDbContext.Products.FirstOrDefault(x => x.ID == productId);
         }
-
-        public void CreateProduct(Product product)
+        public void AddProduct(Product product)
         {
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            _eShopDbContext.Products.Add(product);
+            _eShopDbContext.SaveChanges();
         }
-
         public void UpdateProduct(Product product)
         {
-            var productInDb = _context.Products.Find(product.Id);
-            if (productInDb != null)
-            {
-
-                productInDb.Price = product.Price;
-                productInDb.OriginalPrice = product.OriginalPrice;
-                productInDb.Stock = product.Stock;
-                productInDb.ViewCount = product.ViewCount;
-                productInDb.DateCreated = product.DateCreated;
-                productInDb.IsFeatured = product.IsFeatured;
-                productInDb.Description = product.Description;
-                productInDb.CategoryId = product.CategoryId;
-
-
-
-                _context.SaveChanges();
-            }
-        }
-
-
-        public void DeleteProduct(int id)
-        {
-            var product = _context.Products.Find(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-                _context.SaveChanges();
-            }
-        }
-
-        public List<Product> GetProductByCategory(int categoryId)
-        {
-            return _context.Products.Where(x => x.CategoryId == categoryId).ToList();
-
-
-        }
-        public List<Product> SearchProductByProductName(string ProductName)
-        {
-            return _context.Products.Where(x => x.ProductName == ProductName).ToList();
-
-
-        }
-
-        public ProductDto GetProductDetailDtoByProductId(int productId)
-        {
-            //  var testProduct = _context.Products.Include(x=>x.Category).Where(x => x.Id == productId).FirstOrDefault();
-            var product = _context.Products.Include(x => x.Category).Where(x => x.Id == productId)
-                .Select(x => new ProductDto
+            var productDTO = _eShopDbContext.Products.Find(product.ID);
+                if(productDTO != null)
                 {
-                    CategoryId = x.CategoryId.Value,
-                    Id = x.Id,
-                    ProductName = x.ProductName,
-                    Status = x.Category.Status,
-                }).FirstOrDefault();
-            //  var category = _context.Categories.Where(x => x.Id == product.CategoryId).FirstOrDefault();
-            //var result = new ProductDto
-            //{
-            //    CategoryId = product.CategoryId,
-            //    Id = product.Id,
-            //    Status = category.Status,
-            //    ProductName = product.ProductName
-            //};
-            return product;
+                productDTO.ID = product.ID;
+                productDTO.Name = product.Name;
+                productDTO.Price = product.Price;
+                productDTO.Stock = product.Stock;
+                _eShopDbContext.SaveChanges();
+            }
+            
+        }
+        public void DeleteProduct(int productId) 
+        {
+            var product = _eShopDbContext.Products.FirstOrDefault(x => x.ID == productId);
+            {
+                if (product != null)
+                    _eShopDbContext.Products.Remove(product);
+                _eShopDbContext.SaveChanges();
+            }
+        }
 
+        public IEnumerable<Product> GetPagedProducts(int pageNumber, int pageSize)
+        {
+            return _eShopDbContext.Products
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+        }
+        public int GetTotalProducts()
+        {
+            return _eShopDbContext.Products.Count();
         }
     }
+
 }

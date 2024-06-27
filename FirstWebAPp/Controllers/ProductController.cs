@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using eShopSolution.Application.IService;
+using eShopsolution.Data.EF;
 
 namespace eShopSolution.Controllers
 {
@@ -18,7 +19,6 @@ namespace eShopSolution.Controllers
         {
             _productService = productService;
         }
-
         [HttpGet("GetAllProducts")]
         public IActionResult GetAllProducts()
         {
@@ -27,71 +27,71 @@ namespace eShopSolution.Controllers
         }
 
         [HttpGet("GetProductById/{id}")]
-        public IActionResult GetProductById(int id)
+        public IActionResult GetProduct(int id)
         {
-            var product = _productService.GetProductById(id);
+            var product = _productService.GetProductbyID(id);
             if (product == null)
             {
                 return NotFound();
             }
             return Ok(product);
         }
-
         [HttpPut("EditProduct/{id}")]
         public IActionResult EditProduct(int id, [FromBody] Product product)
         {
-            if (id != product.Id)
+            if (id != product.ID)
             {
                 return BadRequest();
             }
-
-            var existingProduct = _productService.GetProductById(id);
+            var existingProduct = _productService.GetProductbyID(id);
             if (existingProduct == null)
             {
-                return NotFound();
+                return NotFound();      
             }
-
             _productService.UpdateProduct(product);
             return NoContent();
         }
-
         [HttpDelete("DeleteProduct/{id}")]
         public IActionResult DeleteProduct(int id)
         {
-            var productToDelete = _productService.GetProductById(id);
+            var productToDelete = _productService.GetProductbyID(id);
             if (productToDelete == null)
             {
                 return NotFound();
             }
 
-           _productService.DeleteProduct(id);
+            _productService.DeleteProduct(id);
             return NoContent();
         }
-        [HttpGet("GetProductByCategory/{categoryId}")]
-        public IActionResult GetProductByCategory(int categoryId)
+        [HttpGet("GetProductByName/{name}")]
+        public IActionResult GetProductbyName(string name)
         {
-            var products = _productService.GetAllProducts().Where(p => p.CategoryId == categoryId);
+           var products = _productService.GetAllProducts().Where(x => x.Name.Contains(name));
             return Ok(products);
         }
-
-
-        [HttpGet("SearchProductByProductName/{ProductName}")]
-        public IActionResult SearchProductByProductName(string ProductName)
+        // phân trang 
+        [HttpGet("paged")]
+        public IActionResult GetPagedProducts([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var products = _productService.GetAllProducts()
-                                  .Where(p => p.ProductName.Contains(ProductName));
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                return BadRequest("Page number and page size must be greater than zero.");
+            }
 
-            return Ok(products);
-        }
+            var products = _productService.GetPagedProducts(pageNumber, pageSize);
+            var totalProducts = _productService.GetTotalProducts();
 
-        [HttpGet("GetProductDetailDtoByProductId/{Id}")]
-        public IActionResult GetProductDetailDtoByProductId(int id)
-        {
-            var product = _productService.GetProductDetailDtoByProductId(id);
-            return Ok(product);
+            var response = new
+            {
+                TotalCount = totalProducts,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Products = products
+            };
 
-
+            return Ok(response);
         }
 
     }
 }
+
