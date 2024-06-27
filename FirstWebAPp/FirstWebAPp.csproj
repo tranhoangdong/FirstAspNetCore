@@ -22,4 +22,8 @@
     <ProjectReference Include="..\eShopsolution.Application\eShopSolution.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Category\" />
+  </ItemGroup>
+
 </Project>

@@ -1,38 +1,31 @@
-﻿using eShopSolution.Data.Configuration;
-using eShopSolution.Data.Configurations;
-using eShopSolution.Data.Emtyties;
-using eShopSolution.Data.Entities;
+﻿using eShopSolution.Data.Entities;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace eShopsolution.Data.EF
 {
-    public class EShopDbContext : IdentityDbContext
+    public class EShopDbContext : DbContext
     {
-
+        
 
         public EShopDbContext( DbContextOptions options) : base(options)
         {   
         }
+        public virtual DbSet<Product> Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-          
-           
-            
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("Product");
+
+                entity.Property(e => e.ID).HasColumnType("int");
+
+            });
+
+
         }
-
-        public DbSet<Product> Products { get; set; }
-      
-
-      
-
-
 
     }
 }

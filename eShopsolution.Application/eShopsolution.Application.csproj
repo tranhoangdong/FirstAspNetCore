@@ -25,8 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Dtos\" />
-    <Folder Include="IService\" />
-    <Folder Include="Service\" />
   </ItemGroup>
 
 </Project>
