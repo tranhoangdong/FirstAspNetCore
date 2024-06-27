@@ -13,6 +13,9 @@ namespace eShopsolution.Data.EF
         {   
         }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -23,8 +26,18 @@ namespace eShopsolution.Data.EF
                 entity.Property(e => e.ID).HasColumnType("int");
 
             });
+            modelBuilder.Entity<Image>(entity =>
+            {
+                entity.ToTable("Image");
 
+                entity.Property(e => e.ID).HasColumnType("int");
 
+            });
+            modelBuilder.Entity<Image>()
+              .HasOne(e => e.product)
+              .WithMany(e => e.Images)
+              .HasForeignKey(e => e.ProductId)
+              .IsRequired();
         }
 
     }
