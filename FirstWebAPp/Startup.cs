@@ -32,6 +32,7 @@ namespace FirstWebAPp
                         options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
 
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IImageService, ImageService>();
 
             services.AddControllersWithViews();
         }
