@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using eShopSolution.Application.IService;
 using eShopsolution.Data.EF;
+using eShopSolution.Application.Dtos;
 
 namespace eShopSolution.Controllers
 {
@@ -14,10 +15,12 @@ namespace eShopSolution.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly EShopDbContext _eShopDbContext;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, EShopDbContext eShopDbContext)
         {
             _productService = productService;
+            _eShopDbContext = eShopDbContext;
         }
         [HttpGet("GetAllProducts")]
         public IActionResult GetAllProducts()
@@ -37,21 +40,23 @@ namespace eShopSolution.Controllers
             return Ok(product);
         }
         [HttpPut("EditProduct/{id}")]
-        public IActionResult EditProduct(int id, [FromBody] Product product)
+        public async Task<IActionResult> EditProduct(int id, [FromBody] ProductDTO productDto)
         {
-            if (id != product.ID)
+            if (productDto == null)
             {
-                return BadRequest();
+                return BadRequest("Product data is null");
             }
-            var existingProduct = _productService.GetProductbyID(id);
-            if (existingProduct == null)
+
+            bool isUpdated = await _productService.UpdateProductAsync(id, productDto);
+
+            if (!isUpdated)
             {
-                return NotFound();      
+                return NotFound();
             }
-            _productService.UpdateProduct(product);
+
             return NoContent();
         }
-        [HttpDelete("DeleteProduct/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {
             var productToDelete = _productService.GetProductbyID(id);
@@ -66,7 +71,7 @@ namespace eShopSolution.Controllers
         [HttpGet("GetProductByName/{name}")]
         public IActionResult GetProductbyName(string name)
         {
-           var products = _productService.GetAllProducts().Where(x => x.Name.Contains(name));
+            var products = _productService.GetAllProducts().Where(x => x.Name.Contains(name));
             return Ok(products);
         }
         // phân trang 
@@ -91,7 +96,34 @@ namespace eShopSolution.Controllers
 
             return Ok(response);
         }
+        [HttpPost("CreateProduct")]
+        public async Task<IActionResult> CreateProduct([FromBody] ProductDTO productDto)
+        {
+           if (productDto == null) { return BadRequest() ; }
+            var product = new Product
+            {
+                Name = productDto.Name,
+                Price = productDto.Price,
+                Stock = productDto.Stock,
+            };
+           var createProduct = await _productService.AddProductAsync(product);
+            return Ok(createProduct);
+            
 
+        }
+        [HttpGet("GetProductImage")]
+        public async Task<IActionResult> GetProductImage([FromQuery] string language ="a" )
+        {
+
+            var productImages = await _productService.GetProductImageAsync();
+            if (productImages == null)
+            {
+                return null;
+            }
+            return Ok(productImages);
+           
+        }
     }
 }
+
 
