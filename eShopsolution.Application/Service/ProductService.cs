@@ -1,6 +1,10 @@
 ﻿using eShopsolution.Data.EF;
+
+using eShopSolution.Application.Dtos;
 using eShopSolution.Application.IService;
 using eShopSolution.Data.Entities;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,24 +31,30 @@ namespace eShopSolution.Application.Service
         {
             return _eShopDbContext.Products.FirstOrDefault(x => x.ID == productId);
         }
-        public void AddProduct(Product product)
+        public async Task<Product> AddProductAsync(Product product)
         {
             _eShopDbContext.Products.Add(product);
-            _eShopDbContext.SaveChanges();
+           await  _eShopDbContext.SaveChangesAsync();
+            return product;
         }
-        public void UpdateProduct(Product product)
+        public async Task<bool> UpdateProductAsync(int id, ProductDTO productDto)
         {
-            var productDTO = _eShopDbContext.Products.Find(product.ID);
-                if(productDTO != null)
-                {
-                productDTO.ID = product.ID;
-                productDTO.Name = product.Name;
-                productDTO.Price = product.Price;
-                productDTO.Stock = product.Stock;
-                _eShopDbContext.SaveChanges();
+            var existingProduct = await _eShopDbContext.Products.FindAsync(id);
+            if (existingProduct == null)
+            {
+                return false;
             }
-            
+
+            existingProduct.Name = productDto.Name;
+            existingProduct.Price = productDto.Price;
+            existingProduct.Stock = productDto.Stock;
+
+            _eShopDbContext.Products.Update(existingProduct);
+            await _eShopDbContext.SaveChangesAsync();
+
+            return true;
         }
+
         public void DeleteProduct(int productId) 
         {
             var product = _eShopDbContext.Products.FirstOrDefault(x => x.ID == productId);
@@ -66,6 +76,31 @@ namespace eShopSolution.Application.Service
         {
             return _eShopDbContext.Products.Count();
         }
+
+        public async Task<List<ProductDTO>> GetProductImageAsync()
+        {
+            var products = await _eShopDbContext.Products
+                .Include(p => p.Images)
+                .ToListAsync();
+
+            var productDTOs = products.Select(p => new ProductDTO
+            {
+                
+                Name = p.Name,
+                Price = p.Price,
+                Stock = p.Stock,
+                Images = p.Images.Select(i => new ImageDTO
+                {
+                    ID = i.ID,
+                    Name = i.Name,
+                    ProductId = i.ProductId,
+                    ContentType = i.ContentType
+                }).ToList()
+            }).ToList();
+
+            return productDTOs;
+        }
+
     }
 
 }

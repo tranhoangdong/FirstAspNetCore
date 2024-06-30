@@ -1,4 +1,5 @@
-﻿using eShopSolution.Data.Entities;
+﻿using eShopSolution.Application.Dtos;
+using eShopSolution.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,9 +11,11 @@ namespace eShopSolution.Application.IService
     {
         List<Product> GetAllProducts();
         Product GetProductbyID(int productId);
-        public void UpdateProduct(Product product);
         public void DeleteProduct(int productId);
+        Task<bool> UpdateProductAsync(int id, ProductDTO productDto);
         public IEnumerable<Product> GetPagedProducts(int pageNumber, int pageSize);
         public int GetTotalProducts();
+        Task<Product> AddProductAsync(Product product);
+        Task<List<ProductDTO>> GetProductImageAsync();
     }
 }
