@@ -1,9 +1,12 @@
 using eShopsolution.Data.EF;
 using eShopSolution.Application.IService;
 using eShopSolution.Application.Service;
+using eShopSolution.Data.Entities;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +37,10 @@ namespace FirstWebAPp
 
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IUserServices, UserServices>();
+            services.AddTransient<UserManager<User>, UserManager<User>>();
+            services.AddTransient<SignInManager<User>,SignInManager<User>>();
+
 
             services.AddControllersWithViews();
             services.AddSwaggerGen();
