@@ -42,6 +42,7 @@ namespace FirstWebAPp
             services.AddTransient<SignInManager<User>,SignInManager<User>>();
 
 
+
             services.AddControllersWithViews();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>

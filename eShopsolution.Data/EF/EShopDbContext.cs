@@ -14,11 +14,14 @@ namespace eShopsolution.Data.EF
         }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Image> Images { get; set; }
+       
+
+        public virtual DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
@@ -38,6 +41,13 @@ namespace eShopsolution.Data.EF
               .WithMany(e => e.Images)
               .HasForeignKey(e => e.ProductId)
               .IsRequired();
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("User");
+
+                entity.Property(e => e.ID).HasColumnType("int");
+
+            });
         }
 
     }

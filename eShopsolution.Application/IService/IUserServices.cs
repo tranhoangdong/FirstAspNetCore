@@ -9,7 +9,7 @@ namespace eShopSolution.Application.IService
 {
     public  interface IUserServices
     {
-        Task<bool> Authecate(LoginRequest request);
+        Task<string> Authecate(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
     }
 }
