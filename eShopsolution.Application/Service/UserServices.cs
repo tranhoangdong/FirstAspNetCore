@@ -1,5 +1,6 @@
 ﻿using eShopSolution.Application.Dtos;
 using eShopSolution.Application.IService;
+using eShopSolution.Data.Emtyties;
 using eShopSolution.Data.Entities;
 
 using Microsoft.AspNetCore.Identity;
@@ -19,13 +20,15 @@ namespace eShopSolution.Application.Service
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
+        private readonly RoleManager<Roles> _roleManager;
 
 
-        public UserServices(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        public UserServices(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, RoleManager<Roles> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
+            _roleManager = roleManager;
         }
         public async Task<string> Authecate(LoginRequest request)
         {
@@ -59,14 +62,14 @@ namespace eShopSolution.Application.Service
         {
             var user = new User
             {
-                Username = request.Username,
+               UserName = request.Username.Trim(),
                 Email = request.Email,
                 Password = request.Password,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Phone = request.Phone,
             };
-           var result = await _userManager.CreateAsync(user);
+           var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
                 return true;

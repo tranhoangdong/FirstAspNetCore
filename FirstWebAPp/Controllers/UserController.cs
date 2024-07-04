@@ -4,6 +4,8 @@ using eShopSolution.Application.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FirstWebAPp.Controllers
@@ -20,7 +22,7 @@ namespace FirstWebAPp.Controllers
         }
         [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody] LoginRequest loginRequest)
+        public async Task<IActionResult> Authenticate([FromForm] LoginRequest loginRequest)
         {
             if (!ModelState.IsValid)
 
@@ -35,11 +37,15 @@ namespace FirstWebAPp.Controllers
         }
         [HttpPost("reister")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest registerRequest)
+        public async Task<IActionResult> Register([FromForm] RegisterRequest registerRequest)
         {
             if (!ModelState.IsValid)
-
-                return BadRequest(ModelState);
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                              .Select(e => e.ErrorMessage)
+                                              .ToList();
+                return BadRequest(errors);
+            }
             var result = await _userServices.Register(registerRequest);
             if (!result)
             {

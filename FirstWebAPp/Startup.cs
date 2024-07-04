@@ -1,6 +1,7 @@
 using eShopsolution.Data.EF;
 using eShopSolution.Application.IService;
 using eShopSolution.Application.Service;
+using eShopSolution.Data.Emtyties;
 using eShopSolution.Data.Entities;
 
 using Microsoft.AspNetCore.Builder;
@@ -32,18 +33,24 @@ namespace FirstWebAPp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddDbContextPool<EShopDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
+            services.AddIdentity<User,Roles>().AddEntityFrameworkStores<EShopDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IUserServices, UserServices>();
             services.AddTransient<UserManager<User>, UserManager<User>>();
             services.AddTransient<SignInManager<User>,SignInManager<User>>();
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            });
 
 
 
-            services.AddControllersWithViews();
+          services.AddControllersWithViews();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {
