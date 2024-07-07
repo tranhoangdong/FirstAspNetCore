@@ -11,7 +11,7 @@ namespace eShopSolution.Application.Dtos
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
 
         [Required(ErrorMessage = "First name is required")]
         public string FirstName { get; set; }

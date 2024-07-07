@@ -35,7 +35,7 @@ namespace eShopSolution.Application.Service
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null)
                 return null;
-            var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.Rememberme, true);
+            var result = await _signInManager.PasswordSignInAsync(user, request.PasswordHash, request.Rememberme, true);
             if (!result.Succeeded)
             { return null; }
 
@@ -43,7 +43,7 @@ namespace eShopSolution.Application.Service
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, request.UserName),
-                new Claim(ClaimTypes.PostalCode, request.Password),
+                new Claim(ClaimTypes.PostalCode, request.PasswordHash),
                 new Claim(ClaimTypes.Role, string.Join(",", roles)),
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
@@ -64,12 +64,12 @@ namespace eShopSolution.Application.Service
             {
                UserName = request.Username.Trim(),
                 Email = request.Email,
-                Password = request.Password,
+                PasswordHash = request.PasswordHash,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Phone = request.Phone,
+               
             };
-           var result = await _userManager.CreateAsync(user, request.Password);
+           var result = await _userManager.CreateAsync(user, request.PasswordHash);
             if (result.Succeeded)
             {
                 return true;

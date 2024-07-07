@@ -4,9 +4,11 @@ using eShopSolution.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+using System.Data;
+
 namespace eShopsolution.Data.EF
 {
-    public class EShopDbContext : DbContext
+    public class EShopDbContext : IdentityDbContext<User, Roles, int>
     {
         
 
@@ -46,7 +48,7 @@ namespace eShopsolution.Data.EF
             {
                 entity.ToTable("User");
 
-                entity.Property(e => e.ID).HasColumnType("int");
+                entity.Property(e => e.Id).HasColumnType("int");
 
             });
             modelBuilder.Entity<Roles>(entity =>

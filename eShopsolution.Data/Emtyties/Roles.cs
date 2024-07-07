@@ -6,9 +6,8 @@ using System.Text;
 
 namespace eShopSolution.Data.Emtyties
 {
-    public  class Roles : IdentityRole
+    public  class Roles : IdentityRole<int>
     {
-        public int Id { get; set; }
-        public int Name { get; set; }
+        public string Description { get; set; }
     }
 }
