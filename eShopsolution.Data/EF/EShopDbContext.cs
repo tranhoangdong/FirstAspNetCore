@@ -1,24 +1,25 @@
 ﻿using eShopSolution.Data.Emtyties;
 using eShopSolution.Data.Entities;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+using System;
 using System.Data;
 
 namespace eShopsolution.Data.EF
 {
     public class EShopDbContext : IdentityDbContext<User, Roles, int>
     {
-        
+            
 
         public EShopDbContext( DbContextOptions options) : base(options)
         {   
         }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Image> Images { get; set; }
-        public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Roles> Roless { get; set; }
+        
 
 
 
@@ -44,20 +45,13 @@ namespace eShopsolution.Data.EF
               .WithMany(e => e.Images)
               .HasForeignKey(e => e.ProductId)
               .IsRequired();
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("User");
+            modelBuilder.Entity<IdentityUserClaim<Guid>>().ToTable("AppUserClaims");
+            modelBuilder.Entity<IdentityUserRole<Guid>>().ToTable("AppUserRoles").HasKey(x => new { x.UserId, x.RoleId });
+            modelBuilder.Entity<IdentityUserLogin<Guid>>().ToTable("AppUserLogins").HasKey(x => x.UserId);
 
-                entity.Property(e => e.Id).HasColumnType("int");
-
-            });
-            modelBuilder.Entity<Roles>(entity =>
-            {
-                entity.ToTable("Roles");
-
-                entity.Property(e => e.Id).HasColumnType("int");
-
-            });
+            modelBuilder.Entity<IdentityRoleClaim<Guid>>().ToTable("AppRoleClaims");
+            modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
+            base.OnModelCreating(modelBuilder);
         }
 
     }

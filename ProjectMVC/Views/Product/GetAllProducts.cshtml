@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ProjectMVC.Models.ProductViewModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Danh sách sản phẩm</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn-add {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+            .btn-add:hover {
+                background-color: #218838;
+            }
+
+        .btn-edit {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+            .btn-edit:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <h2>Danh sách sản phẩm</h2>
+
+    <a href="@Url.Action("CreateProduct", "Product")" class="btn-add">Thêm sản phẩm</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Tồn kho</th>
+                <th>Chỉnh sửa</th> 
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.ID</td>
+                        <td>@product.Name</td>
+                        <td>@product.Price.ToString("C")</td>
+                        <td>@product.Stock</td>
+                        <td>
+                            <a href="@Url.Action("EditProduct", "Product", new { id = product.ID })" class="btn-edit">Chỉnh sửa</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">Không có sản phẩm nào được tìm thấy.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

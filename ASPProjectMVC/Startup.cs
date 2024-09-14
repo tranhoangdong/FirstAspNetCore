@@ -1,4 +1,5 @@
 using eShopsolution.Data.EF;
+
 using eShopSolution.Application.IService;
 using eShopSolution.Application.Service;
 using eShopSolution.Data.Emtyties;
@@ -12,14 +13,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FirstWebAPp
+namespace ASPProjectMVC
 {
     public class Startup
     {
@@ -33,34 +33,12 @@ namespace FirstWebAPp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             services.AddDbContextPool<EShopDbContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
-            services.AddIdentity<User,Roles>().AddEntityFrameworkStores<EShopDbContext>().AddDefaultTokenProviders();
+                       options.UseSqlServer(Configuration.GetConnectionString("eShopSolutionDb")));
+            services.AddIdentity<User, Roles>().AddEntityFrameworkStores<EShopDbContext>().AddDefaultTokenProviders();
 
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IImageService, ImageService>();
-            services.AddTransient<IUserServices, UserServices>();
-            services.AddTransient<UserManager<User>, UserManager<User>>();
-            services.AddTransient<SignInManager<User>,SignInManager<User>>();
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            });
-
-
-            services.AddMvc();
             services.AddControllersWithViews();
-            services.AddSwaggerGen();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "Implement Swagger UI",
-                    Description = "A simple example to Implement Swagger UI",
-                });
-            });
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,15 +63,9 @@ namespace FirstWebAPp
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
-                    name: "mvc",
+                    name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            });
-            app.UseSwagger();
-            app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Showing API V1");
             });
         }
     }
